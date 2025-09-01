@@ -39,7 +39,9 @@ app.route("/cursos")
     });
   })
   .post((req, res) => {
-    const { nombre, creditos } = req.body;
+    const nombre = req.body.nombre;
+    const creditos = req.body.creditos;
+
     if (!nombre || !creditos) {
       return res.status(400).json({ error: "Nombre y créditos son obligatorios" });
     }
@@ -67,7 +69,8 @@ app.route("/curso/:id")
   })
   .put((req, res) => {
     const { id } = req.params;
-    const { nombre, creditos } = req.body;
+    const nombre = req.body.nombre;
+    const creditos = req.body.creditos;
 
     if (!nombre || !creditos) {
       return res.status(400).json({ error: "Nombre y créditos son obligatorios" });
