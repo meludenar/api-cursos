@@ -1,6 +1,6 @@
 {
     "info": {
-        "_postman_id": "12345678-abcd-efgh-ijkl-9876543210ab",
+        "_postman_id": "dfce9114-1af8-4027-9ef9-dc92320d0afe",
         "name": "api-cursos",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
@@ -97,12 +97,12 @@
                     "formdata": [
                         {
                             "key": "nombre",
-                            "value": "F\u00edsica Avanzada",
+                            "value": "Programaci\u00f3n Avanzada",
                             "type": "text"
                         },
                         {
                             "key": "creditos",
-                            "value": "5",
+                            "value": "6",
                             "type": "text"
                         }
                     ]
