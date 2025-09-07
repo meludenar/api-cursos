@@ -1,10 +1,11 @@
+// app.js
 const express = require("express");
 const sqlite3 = require("sqlite3").verbose();
 
 const app = express();
-const PORT = 8000;
+const PORT = 8005;
 
-// Middleware para parsear JSON y formularios
+// Middleware para parsear JSON y formularios (form-data)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -17,13 +18,13 @@ const db = new sqlite3.Database("cursos.sqlite", (err) => {
   }
 });
 
-// Crear tabla si no existe
+// Crear tabla cursos si no existe
 db.serialize(() => {
   db.run(`
     CREATE TABLE IF NOT EXISTS cursos (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       nombre TEXT NOT NULL,
-      creditos INTEGER NOT NULL
+      creditos INTEGER
     )
   `);
 });
@@ -39,9 +40,7 @@ app.route("/cursos")
     });
   })
   .post((req, res) => {
-    const nombre = req.body.nombre;
-    const creditos = req.body.creditos;
-
+    const { nombre, creditos } = req.body;
     if (!nombre || !creditos) {
       return res.status(400).json({ error: "Nombre y créditos son obligatorios" });
     }
@@ -69,8 +68,7 @@ app.route("/curso/:id")
   })
   .put((req, res) => {
     const { id } = req.params;
-    const nombre = req.body.nombre;
-    const creditos = req.body.creditos;
+    const { nombre, creditos } = req.body;
 
     if (!nombre || !creditos) {
       return res.status(400).json({ error: "Nombre y créditos son obligatorios" });
@@ -90,7 +88,7 @@ app.route("/curso/:id")
       if (err) return res.status(500).json({ error: err.message });
       if (this.changes === 0) return res.status(404).json({ error: "Curso no encontrado" });
 
-      res.json({ message: `El curso con id ${id} fue eliminado.` });
+      res.json({ message: `El curso con id ${id} ha sido eliminado.` });
     });
   });
 
